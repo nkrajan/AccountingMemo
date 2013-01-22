@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Send Message</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/jquery-ui.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/ui.notify.css" />
+    <script src="/javascripts/underscore-min.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery-1.7.2.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery-ui.js" type="text/javascript"></script>
+
+    <!-- http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/ -->
+    <script src="/javascripts/jquery.notify.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        function getQueryStringByName(name) {
+            var result = location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
+            if (result == null || result.length < 1) {
+                return "";
+            }
+            return decodeURIComponent(result[1]);
+        }
+
+        $(function () {
+
+            // Enable controlPanel
+            var messageBody = $('#messageBody');
+            var controlPanel = $('#controlPanel');
+            $(':button', controlPanel).click(function () {
+                messageBody.val(messageBody.val() + $(this).val());
+            });
+
+            // Show the notification
+            var isMessageSent = getQueryStringByName('isMessageSent');
+            if (isMessageSent) {
+                //
+                // initialize widget on a container, passing in all the defaults.
+                // the defaults will apply to any notification created within this
+                // container, but can be overwritten on notification-by-notification
+                // basis.
+                var notificationBox = $("#notificationBox");
+                notificationBox.notify({ speed: 500, expires: 5000 });
+                notificationBox.notify("create", { title: 'Notification', text: 'The message "' + getQueryStringByName('messageBody') + '" is successfully sent.' });
+            }
+        });
+
+    </script>
+
+</head>
+<body>
+    <h1>Send Message</h1>
+
+    <div id="notificationBox" style="display: none">
+
+        <!-- 
+        Later on, you can choose which template to use by referring to the 
+        ID assigned to each template.  Alternatively, you could refer
+        to each template by index, so in this example, "basic-tempate" is
+        index 0 and "advanced-template" is index 1.
+        -->
+        <div id="basic-template">
+            <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+            <h1>#{title}</h1>
+            <p>#{text}</p>
+        </div>
+
+        <div id="advanced-template">
+            <!-- ... you get the idea ... -->
+        </div>
+
+    </div>
+
+    <form action="post" method="post">
+        <div id="controlPanel">
+            <div id="Person">
+                <input type="button" value="Tom: " />
+                <input type="button" value="Jerry: " />
+            </div>
+            <div id="Div1">
+                <input type="button" value="早饭" />
+                <input type="button" value="午饭" />
+            </div>
+            <div id="Div2">
+                <input type="button" value="花了" />
+                <input type="button" value="收入" />
+            </div>
+            <div id="numbers">
+                <input type="button" value="1" />
+                <input type="button" value="2" />
+                <input type="button" value="3" />
+                <input type="button" value="4" />
+                <input type="button" value="5" />
+                <input type="button" value="6" />
+                <input type="button" value="7" />
+                <input type="button" value="8" />
+                <input type="button" value="9" />
+                <input type="button" value="0" />
+            </div>
+            <div id="shortcutKeys">
+                <input type="button" value="Space" />
+                <input type="button" value="say" />
+            </div>
+        </div>
+        <input id="messageBody" type="text" name="messageBody" style="width: 285px" />
+        <input type="submit" value="Send" />
+    </form>
+</body>
+</html>

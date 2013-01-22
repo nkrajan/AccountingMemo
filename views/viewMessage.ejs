@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>View Messages</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body style="text-align: center;">
+
+    <div style="margin: 14px 7px">
+
+        <table class="gradientTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i = 0; i < messages.length; ++ i) { %>
+            <tr>
+                <td class="row"><%= messages[i].date %></td>
+                <td class="row"><%= messages[i].message %></td>
+            </tr>
+                <% } %>
+            </tbody>
+
+        </table>
+    </div>
+</body>
+</html>
